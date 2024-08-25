@@ -1,0 +1,24 @@
+<div class="container" *ngIf="currentUser; else loggedOut">
+  
+  <p>
+    <strong>Nom d'utilisateur: </strong> {{ currentUser.username }}
+  </p>
+  <strong>Role:</strong>
+  <ul>
+    <li *ngFor="let role of currentUser.roles">
+      {{ role }}
+    </li>
+  </ul>
+  
+  <p>
+    <strong>Ancien mot de passe:</strong> 
+  </p>
+  <p>
+    <strong>Nouveau mot de passe:</strong> 
+  </p>
+</div>
+<button> modifier mot de passe</button>
+
+<ng-template #loggedOut>
+  Se connecter d'abord.
+</ng-template>

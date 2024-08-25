@@ -1,0 +1,71 @@
+<div class="col-md-12">
+
+  <h2 style=" text-align-last: center; ">
+    <label class="titleMobile" style="
+   color: #2191c0; 
+   font-family: 'Lucida Bright'; ">S'enregistrer  </label>
+  </h2>
+  <div class="card card-container"> 
+    <form
+      *ngIf="!isSuccessful"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <input
+          type="text"
+          class="form-control"
+          name="username"
+          [(ngModel)]="form.username"
+          required
+          minlength="3"
+          maxlength="20"
+          #username="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
+          <div *ngIf="username.errors['required']">Nom d'utilisateur est obligatoire</div>
+          <div *ngIf="username.errors['minlength']">
+            Nom d'utilisateur doit contenir au moins 3 caractères
+          </div>
+          <div *ngIf="username.errors['maxlength']">
+            Nom d'utilisateur doit contenir au max 20 caractères
+          </div>
+        </div>
+      </div> 
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          [(ngModel)]="form.password"
+          required
+          minlength="6"
+          #password="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
+          <div *ngIf="password.errors['required']">Mot de passe est obligatoire</div>
+          <div *ngIf="password.errors['minlength']">
+            Mot de passe doit contenir au moins 6 caractères
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Créer un nouveau compte</button>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Création échu!<br />{{ errorMessage }}
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      l'utilisateur est bien crée!
+    </div>
+  </div>
+</div>

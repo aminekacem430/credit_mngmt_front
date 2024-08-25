@@ -1,0 +1,44 @@
+
+<h2 style=" text-align-last: center; ">
+  <label class="titleMobile" style="
+ color: #2191c0; 
+ font-family: 'Lucida Bright'; ">Bienvenue  </label>
+</h2>
+<div class="container">
+  <header *ngIf="(isLoggedIn)" class="jumbotron"> 
+    <table  mat-table [dataSource]="dataSource"   class="mat-elevation-z8">
+     
+      <!-- Nom Column -->
+      <ng-container matColumnDef="nom_client">
+        <th mat-header-cell *matHeaderCellDef> Client </th>
+        <td mat-cell *matCellDef="let element"> {{element.nomClient}} </td>
+      </ng-container>
+      <!-- restant Column -->
+      <ng-container matColumnDef="total_credit">
+        <th mat-header-cell *matHeaderCellDef> total crédit</th>
+        <td mat-cell *matCellDef="let element"> {{element.total_credit | currency: 'TND'}} </td>
+      </ng-container> 
+      <!-- restant Column -->
+      <ng-container matColumnDef="total_debit">
+        <th mat-header-cell *matHeaderCellDef> total payé </th>
+        <td mat-cell *matCellDef="let element"> {{element.total_debit| currency: 'TND'}} </td>
+      </ng-container> 
+      <!-- restant Column -->
+      <ng-container matColumnDef="restant_a_paye">
+        <th mat-header-cell *matHeaderCellDef> Réstant à payer </th>
+        <td mat-cell *matCellDef="let element"  [ngStyle]="{'background-color': (element.restant_a_paye>0) ? '#f39696' : '#a6faa6'}">
+           {{element.restant_a_paye| currency: 'TND'}} </td>
+      </ng-container> 
+    
+    
+      <tr mat-header-row *matHeaderRowDef="headers"></tr>
+      <tr mat-row  (click)="checkClient(row)" *matRowDef="let row; columns: headers;"></tr>
+      
+    </table>
+    
+    
+  </header>
+  <header *ngIf="!(isLoggedIn)" class="jumbotron"> 
+    Veuillez se connecter pour pouvoir consulter la liste
+  </header>
+</div>
